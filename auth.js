@@ -3,11 +3,6 @@ var request = require("request");
 
 var FincuraApi = require('fincura_api');
 
-var cachedJwts = {};
-
-
-
-
 var ensureAccessToken = function(fincura_credentials){
     return when.promise(function(resolve) {
         if(fincura_credentials){
