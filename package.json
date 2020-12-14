@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-fincura",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "a Node-RED package for interaction with Fincura",
   "scripts": {
     "lint": "standard"
@@ -29,6 +29,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "dot-object": "^1.4.1",
+    "fincura_api": "^1.2.6",
     "fs": "0.0.2",
     "hash-sum": "^2.0.0",
     "is-utf8": "^0.2.1",
