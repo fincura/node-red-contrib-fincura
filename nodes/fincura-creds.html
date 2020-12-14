@@ -1,0 +1,52 @@
+<script type="text/x-red" data-template-name="fincura-api-credentials">
+    <div class="form-row">
+        <label for="node-config-input-tenant_id"><i class="fa fa-university"></i> Tenant ID:</label>
+        <input type="text" id="node-config-input-tenant_id">
+    </div>
+    <div class="form-row">
+        <label style="margin-left: 20px;" for="node-config-input-environment">Environment:</label>
+        <input type="text" id="node-config-input-environment">
+    </div>
+    <div class="form-row">
+        <label style="margin-left: 20px;" for="node-config-input-refresh_token">Refresh Token:</label>
+        <input type="password" id="node-config-input-refresh_token">
+    </div>
+</script>
+
+<script type="text/javascript">
+    (function() {
+        RED.nodes.registerType('fincura-api-credentials',{
+            category: 'config',
+            defaults: {
+                environment: {value: "production"}
+            },
+            credentials: {
+                tenant_id: {type:"text"},
+                environment: {type: "text", value: "production"},
+                refresh_token: {type: "password"},
+            },
+            label: function() {
+                if (this.tenant_id) {
+                    return this.tenant_id;
+                } else {
+                    return "Fincura: " + this.id;
+                }
+            },
+            exportable: false,
+            oneditsave: function() {
+                var trimFields = [
+                    "tenant_id",
+                    "environment",
+                    "refresh_token"
+                ];
+                // Just in case any whitespace has crept in with the copy-paste of the fields
+                trimFields.forEach(function(field) {
+                    var v = $("#node-config-input-"+field).val();
+                    v = v.trim();
+                    $("#node-config-input-"+field).val(v);
+    
+                });
+            }
+        });
+    })();
+    </script>

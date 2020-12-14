@@ -1,0 +1,37 @@
+<script type="text/x-red" data-template-name="fincura-event-covenant-broken in">
+    <div class="form-row">
+      <label for="node-input-salesforce"><i class="fa fa-user"></i> Log in as</label>
+      <input type="text" id="node-input-salesforce">
+    </div>
+    <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Node Name">
+    </div>
+  </script>
+  
+  <script type="text/x-red" data-help-name="fincura-event-covenant-broken in">
+     <p>Listen to Fincura Events.</p>
+  </script>
+  
+  <script type="text/javascript">
+    RED.nodes.registerType('fincura-event-covenant-broken in', {
+      category: 'fincura',
+      color: "#385275",
+      defaults: {
+        salesforce: { type: 'salesforce', required: true },
+        name: { value: 'Covenant Broken' }
+      },
+      inputs: 0,
+      outputs: 1,
+      icon: "fincura_node_red.jpg", 
+      label: function () {
+        return this.name || 'Covenant Broken';
+      },
+      labelStyle: function () {
+        return 'fincura_label';
+      },
+      paletteLabel: function() {
+        return "Covenant Broken";
+      }
+    });
+  </script>

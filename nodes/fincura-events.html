@@ -1,0 +1,417 @@
+<!--
+  Copyright 2020 Fincura
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="fincura-event-listen in">
+  <div class="form-row">
+    <label for="node-input-fincura_api_creds"><i class="fa fa-key"></i> Creds:</label>
+    <input type="text" id="node-input-fincura_api_creds">
+  </div>
+  <div class="form-row">
+        <label style="width: auto" for="node-input-event">Event</label>
+        <select id="node-input-event">
+            <option value="*">All Events</option>
+            <option value="DocumentFile.Recieved">DocumentFile.Recieved</option>
+            <option value="DocumentFile.Processing">DocumentFile.Processing</option>
+            <option value="DocumentFile.HumanRequired">DocumentFile.HumanRequired</option>
+            <option value="DocumentFile.SpreadComplete">DocumentFile.SpreadComplete</option>
+            <option value="Covenant.Broken">Covenant.Broken</option>
+            <option value="Covenant.ForbearanceRecorded">Covenant.ForbearanceRecorded</option>
+        </select>
+    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-event-listen in">
+   <p>Listen to Fincura Events.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-event-listen in', {
+    category: 'fincura',
+    color: "#84adff",    
+    defaults: {
+      fincura_api_creds: {type:"fincura-api-credentials", required:true},
+      name: { value: 'All Fincura Events' },
+      event: { value: '*'}
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: "fincura_node_red.jpg", 
+    label: function () {
+      if( this.name) {
+        return this.name;
+      } else {
+        return (this.event != '*') ? this.event : 'All Fincura Events';
+      }
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "All Events";
+    }
+  });
+</script>
+
+
+<script type="text/x-red" data-template-name="fincura-bulk-file-create in">
+  <div class="form-row">
+      <label for="node-input-fincura_api_creds"><i class="fa fa-key"></i> Creds:</label>
+      <input type="text" id="node-input-fincura_api_creds">
+  </div>
+  <div class="form-row">
+    <label for="node-input-processor_key">Processor Key: </label>
+    <input type="text" id="node-input-processor_key">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-bulk-file-create in">
+   <p>Create and process new BulkFile.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-bulk-file-create in', {
+    category: 'fincura_files',
+    color: "#84adff",    
+    defaults: {
+      fincura_api_creds: {type:"fincura-api-credentials", required:true},
+      name: { value: 'Create BulkFile' },
+      processor_key: { value: '', required: true }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "fincura_node_red.jpg", 
+    label: function () {
+      return this.name || 'Create BulkFile';
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "BulkFileCreate";
+    }
+  });
+</script>
+
+
+<script type="text/x-red" data-template-name="fincura-event-spread-complete in">
+  <div class="form-row">
+    <label for="node-input-salesforce"><i class="fa fa-user"></i> Log in as</label>
+    <input type="text" id="node-input-salesforce">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-event-spread-complete in">
+   <p>Listen to Fincura Events.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-event-spread-complete in', {
+    category: 'fincura',
+    color: "#84adff",
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      name: { value: 'Spread Complete' }
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: "fincura_node_red.jpg", 
+    label: function () {
+      return this.name || 'Spread Complete';
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "Spread Complete";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="fincura-util-sms out">
+  <div class="form-row">
+    <label for="node-input-salesforce"><i class="fa fa-user"> </i>Number: </label>
+    <input type="text" id="node-input-salesforce">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-util-sms out">
+   <p>Send an SMS (text message).</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-util-sms out', {
+    category: 'fincura_utils',
+    color: "#84adff",
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      name: { value: 'Send SMS' }
+    },
+    inputs: 1,
+    outputs: 0,
+    icon: "font-awesome/fa-automobile", 
+    align: 'right',
+    label: function () {
+      return this.name || 'Send SMS';
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "Send SMS";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="fincura-util-email out">
+  <div class="form-row">
+    <label for="node-input-salesforce"><i class="fa fa-user"> </i>Email: </label>
+    <input type="text" id="node-input-salesforce">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-util-email out">
+   <p>Send an email.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-util-email out', {
+    category: 'fincura_utils',
+    color: "#84adff",
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      name: { value: 'Send Email' }
+    },
+    inputs: 1,
+    outputs: 0,
+    icon: "envelope.png", 
+    align: 'right',
+    label: function () {
+      return this.name || 'Send Email';
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "Send Email";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="fincura-filter-borrower in">
+  <div class="form-row">
+        <label style="width: auto" for="node-input-event">Borrower</label>
+        <select id="node-input-event">
+            <option value="*">All Borrowers</option>
+            <option value="Cody's Co.">Cody's Co.</option>
+            <option value="Johnson Manufacturing">Johnson Manufacturing</option>
+        </select>
+    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-filter-borrower in">
+   <p>Listen to Fincura Events.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-filter-borrower in', {
+    category: 'fincura_filters',
+    color: "#84adff",    
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      event: { value: '*'}
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "function.png", 
+    label: function () {
+      if( this.name) {
+        return this.name;
+      } else {
+        return (this.event && this.event != '*') ? this.event + " Filter" : 'Borrower Filter';
+      }
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "Borrower Filter";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="fincura-filter-portfolio in">
+  <div class="form-row">
+        <label style="width: auto" for="node-input-event">Portfolio</label>
+        <select id="node-input-event">
+            <option value="*">All Portfolio's</option>
+            <option value="Folio Mono.">Folio Mono.</option>
+            <option value="GreenGroup">GreenGroup</option>
+        </select>
+    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-filter-portfolio in">
+   <p>FilterFincura Events by Portfolio.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-filter-portfolio in', {
+    category: 'fincura_filters',
+    color: "#84adff",    
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      event: { value: '*'}
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "function.png", 
+    label: function () {
+      if( this.name) {
+        return this.name;
+      } else {
+        return (this.event && this.event != '*') ? this.event + " Filter" : 'Portfolio Filter';
+      }
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "Portfolio Filter";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="fincura-generators-excel">
+  <div class="form-row">
+        <label style="width: auto" for="node-input-event">Portfolio</label>
+        <select id="node-input-event">
+            <option value="*">All Portfolio's</option>
+            <option value="Folio Mono.">Folio Mono.</option>
+            <option value="GreenGroup">GreenGroup</option>
+        </select>
+    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-generators-excel">
+   <p>FilterFincura Events by Portfolio.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-generators-excel', {
+    category: 'fincura_generators',
+    color: "#84adff",    
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      event: { value: '*'}
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "file.png", 
+    align: 'right',
+    label: function () {
+      if( this.name) {
+        return this.name;
+      } else {
+        return 'Excel File';
+      }
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "Excel File";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="fincura-generators-pdf">
+  <div class="form-row">
+        <label style="width: auto" for="node-input-event">Portfolio</label>
+        <select id="node-input-event">
+            <option value="*">All Portfolio's</option>
+            <option value="Folio Mono.">Folio Mono.</option>
+            <option value="GreenGroup">GreenGroup</option>
+        </select>
+    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Node Name">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="fincura-generators-pdf">
+   <p>FilterFincura Events by Portfolio.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('fincura-generators-pdf', {
+    category: 'fincura_generators',
+    color: "#84adff",    
+    defaults: {
+      salesforce: { type: 'salesforce', required: true },
+      event: { value: '*'}
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "file.png", 
+    align: 'right',
+    label: function () {
+      if( this.name) {
+        return this.name;
+      } else {
+        return 'PDF File';
+      }
+    },
+    labelStyle: function () {
+      return 'fincura_label';
+    },
+    paletteLabel: function() {
+      return "PDF File";
+    }
+  });
+</script>
